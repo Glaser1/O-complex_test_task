@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогноз погоды</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .weather-info {
+            margin-top: 20px;
+        }
+        .weather-info h2 {
+            margin-top: 0;
+        }
+        .forecast {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .forecast div {
+            width: 100px;
+            margin: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Прогноз погоды в {{ city }}</h1>
+        <div class="weather-info">
+            {% if forecast %}
+                <h2>Текущая погода</h2>
+                <p>Температура: {{ forecast['текущая погода']['температура'] }}°C</p>
+                <p>Состояние: {{ forecast['текущая погода']['состояние'] }}</p>
+                <p>Время последнего обновления: {{ forecast['текущая погода']['время последнего обновления'] }}</p>
+                <h2>Прогноз на ближайшие часы</h2>
+                <div class="forecast">
+                    {% for time, temp in forecast['прогноз'].items() %}
+                        <div>
+                            <p><strong>{{ time }}</strong></p>
+                            <p>{{ temp }}°C</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <h2> Невозможно составить прогноз по указанным данным. Проверьте корректность ввода.</h2>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
